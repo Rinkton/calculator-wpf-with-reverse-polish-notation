@@ -4,9 +4,13 @@ namespace BL
 {
     public class MathExpression
     {
+        private string reversePolishNotationText;
+        private string answerText;
+
         public MathExpression(string input)
         {
-
+            reversePolishNotationText = GetReversePolishNotation(input);
+            answerText = GetAnswer(reversePolishNotationText).ToString();
         }
 
         /// <summary>
@@ -14,7 +18,24 @@ namespace BL
         /// </summary>
         /// <param name="input">Инфиксное выражение (например: "3 + 4 * 2")</param>
         /// <returns>Строка в ОПЗ (например: "3 4 2 * +")</returns>
-        public string GetReversePolishNotationText(string input)
+        public string GetReversePolishNotationText()
+        {
+            return reversePolishNotationText;
+        }
+
+        /// <summary>
+        /// Вычисляет результат выражения в обратной польской записи
+        /// </summary>
+        /// <param name="rpn">Выражение в ОПЗ (например: "3 4 2 * +")</param>
+        /// <returns>Результат вычисления</returns>
+        public string GetAnswerText()
+        {
+            return answerText;
+        }
+
+        // Приватные вспомогательные методы
+
+        private string GetReversePolishNotation(string input)
         {
             if(string.IsNullOrWhiteSpace(input))
                 return string.Empty;
@@ -67,12 +88,7 @@ namespace BL
             return string.Join(" ", output);
         }
 
-        /// <summary>
-        /// Вычисляет результат выражения в обратной польской записи
-        /// </summary>
-        /// <param name="rpn">Выражение в ОПЗ (например: "3 4 2 * +")</param>
-        /// <returns>Результат вычисления</returns>
-        public double GetReverseAnswer(string rpn)
+        private double GetAnswer(string rpn)
         {
             if(string.IsNullOrWhiteSpace(rpn))
                 return 0;
@@ -103,8 +119,6 @@ namespace BL
 
             return stack.Pop();
         }
-
-        // Приватные вспомогательные методы
 
         private string ParseNumber(string input, ref int index)
         {
