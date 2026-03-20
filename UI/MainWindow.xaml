@@ -37,7 +37,7 @@
                        Foreground="#ECF0F1" 
                        FontSize="14"
                        Margin="0,0,0,5"/>
-            <TextBox x:Name="ExpressionTextBox" 
+            <TextBox x:Name="InputTextBox" 
                      Height="40" 
                      FontSize="16"
                      Padding="10,5,10,5"
@@ -52,7 +52,7 @@
                        Foreground="#ECF0F1" 
                        FontSize="14"
                        Margin="0,0,0,5"/>
-            <TextBox x:Name="PolishNotationTextBox" 
+            <TextBox x:Name="ReversePolishNotationTextBox" 
                      Height="40" 
                      FontSize="16"
                      Padding="10,5,10,5"
@@ -78,7 +78,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Margin="0,20,0,0"
-                Cursor="Hand">
+                Cursor="Hand"
+                Click="CalculateButton_Click">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#3498DB"/>

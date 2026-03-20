@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using BL;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,18 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string input = InputTextBox.Text;
+            MathExpression exp = new MathExpression(input);
+
+            string reversePolishNotation = exp.GetReversePolishNotationText();
+            ReversePolishNotationTextBox.Text = reversePolishNotation;
+
+            string answer = exp.GetAnswerText();
+            AnswerLabel.Content = answer;
         }
     }
 }
