@@ -13,30 +13,19 @@ namespace BL
             answerText = GetAnswer(reversePolishNotationText).ToString();
         }
 
-        /// <summary>
-        /// Преобразует инфиксное выражение в обратную польскую запись (ОПЗ)
-        /// </summary>
-        /// <param name="input">Инфиксное выражение (например: "3 + 4 * 2")</param>
-        /// <returns>Строка в ОПЗ (например: "3 4 2 * +")</returns>
         public string GetReversePolishNotationText()
         {
             return reversePolishNotationText;
         }
 
-        /// <summary>
-        /// Вычисляет результат выражения в обратной польской записи
-        /// </summary>
-        /// <param name="rpn">Выражение в ОПЗ (например: "3 4 2 * +")</param>
-        /// <returns>Результат вычисления</returns>
         public string GetAnswerText()
         {
             return answerText;
         }
 
-        // Приватные вспомогательные методы
-
         private string GetReversePolishNotation(string input)
         {
+            //ValidateExpression(input); TODO
             if(string.IsNullOrWhiteSpace(input))
                 return string.Empty;
 
@@ -118,6 +107,44 @@ namespace BL
                 throw new InvalidOperationException("Некорректное выражение");
 
             return stack.Pop();
+        }
+
+        private void ValidateExpression(string expression)
+        {
+            int bracketBalance = 0;
+
+            for(int i = 0; i < expression.Length; i++) {
+                char c = expression[i];
+
+                if(char.IsWhiteSpace(c))
+                    continue;
+
+                if(char.IsDigit(c) || c == '.')
+                    continue;
+
+                if(IsOperator(c))
+                    continue;
+
+                if(c == '(') {
+                    bracketBalance++;
+                    continue;
+                }
+
+                if(c == ')') {
+                    bracketBalance--;
+                    if(bracketBalance < 0)
+                        throw new ArgumentException($"Лишняя закрывающая скобка в позиции {i}");
+                    continue;
+                }
+
+                // Если дошли сюда - недопустимый символ
+                throw new ArgumentException(
+                    $"Недопустимый символ '{c}' в позиции {i}. " +
+                    $"Разрешены: цифры, ., +, -, *, /, ^, (, ) и пробелы");
+            }
+
+            if(bracketBalance != 0)
+                throw new ArgumentException("Несбалансированные скобки");
         }
 
         private string ParseNumber(string input, ref int index)
