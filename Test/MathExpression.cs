@@ -10,9 +10,9 @@ namespace Test
         }
 
         [Test]
-        public void AlphabeticalSymbolsInInputThrowsArgumentException()
+        public void AlphabeticalSymbolsInInputThrowsException()
         {
-            Assert.Throws<ArgumentException>(() => new MathExpression("a * b * c"));
+            Assert.Throws<InvalidOperationException>(() => new MathExpression("a * b * c"));
         }
 
         [Test]
@@ -21,8 +21,16 @@ namespace Test
             Assert.That(new MathExpression("1  +2 + 3").GetAnswerText(), Is.EqualTo("6"));
         }
 
-        // Каждый шаг работы покрыть, всмысле?
-        // Всё остальное ещё
-        // Не забудь расскоментить валидацию при нем
+        [Test]
+        public void RPNPrioritiesWorkCorrectly()
+        {
+            Assert.That(new MathExpression("1 + 5^2 * 6").GetAnswerText(), Is.EqualTo("151"));
+        }
+
+        [Test]
+        public void PostfixToRPNWorksCorrectly()
+        {
+            Assert.That(new MathExpression("1 + 2").GetReversePolishNotationText(), Is.EqualTo("1 2 +"));
+        }
     }
 }
