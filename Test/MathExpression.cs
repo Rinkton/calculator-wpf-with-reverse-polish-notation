@@ -5,9 +5,7 @@ namespace Test
     public class Tests
     {
         [SetUp]
-        public void Setup()
-        {
-        }
+        public void Setup() { }
 
         [Test]
         public void AlphabeticalSymbolsInInputThrowsException()
@@ -30,7 +28,10 @@ namespace Test
         [Test]
         public void PostfixToRPNWorksCorrectly()
         {
-            Assert.That(new MathExpression("1 + 2").GetReversePolishNotationText(), Is.EqualTo("1 2 +"));
+            Assert.That(
+                new MathExpression("1 + 2").GetReversePolishNotationText(),
+                Is.EqualTo("1 2 +")
+            );
         }
     }
 }
