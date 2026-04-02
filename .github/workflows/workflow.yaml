@@ -29,7 +29,7 @@ jobs:
         run: dotnet test CalculatorWPFProgInj.sln --configuration Release --no-build --verbosity normal
 
       - name: Install Roslynator CLI
-        run: dotnet tool install -g roslynator.dotnet.cli --version 0.12.0.0
+        run: dotnet tool install -g roslynator.dotnet.cli --version 0.8.3.0
 
       - name: Run Roslynator Analysis
         # Анализ запускается после успешных тестов
