@@ -18,8 +18,19 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Restore dependencies
+        run: dotnet restore CalculatorWPFProgInj.sln
+
+      - name: Build
+        run: dotnet build CalculatorWPFProgInj.sln --configuration Release --no-restore
+
+      - name: Run NUnit Tests
+        # Этот шаг найдет все тестовые проекты (включая ваш новый Calculator.Tests)
+        run: dotnet test CalculatorWPFProgInj.sln --configuration Release --no-build --verbosity normal
+
       - name: Install Roslynator CLI
-        run: dotnet tool install -g roslynator.dotnet.cli --version 0.12.0.0
+        run: dotnet tool install -g roslynator.cli
 
       - name: Run Roslynator Analysis
-        run: roslynator analyze CalculatorWPFProgInj.sln --severity-level warning
+        # Анализ запускается после успешных тестов
+        run: roslynator analyze CalculatorWPFProgInj.sln --severity-level info
